@@ -5,10 +5,10 @@ Subject: [PATCH] Add silent chest flag to players
 
 
 diff --git a/src/main/java/net/minecraft/world/entity/player/Player.java b/src/main/java/net/minecraft/world/entity/player/Player.java
-index f7b88c3215635e60d1448bb6cf57410148bd088e..df163093bdc3c7da9cd8ba2159b06b051bc99302 100644
+index badeaf695cfd617fc489c7ecb10e0c289f103b90..7cce12ec244af47970a3ede7e8384dc83114d636 100644
 --- a/src/main/java/net/minecraft/world/entity/player/Player.java
 +++ b/src/main/java/net/minecraft/world/entity/player/Player.java
-@@ -188,6 +188,7 @@ public abstract class Player extends LivingEntity {
+@@ -189,6 +189,7 @@ public abstract class Player extends LivingEntity {
      public int oldLevel = -1;
  
      // Nabulus start

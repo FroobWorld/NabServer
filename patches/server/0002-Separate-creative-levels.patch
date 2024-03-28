@@ -54,10 +54,10 @@ index 58591bf2f63b9c5e97d9ce4188dff3366968a178..86887f5be0281facd85c48fab9873cac
          this.setShoulderEntityRight(oldPlayer.getShoulderEntityRight());
          this.setLastDeathLocation(oldPlayer.getLastDeathLocation());
 diff --git a/src/main/java/net/minecraft/server/players/PlayerList.java b/src/main/java/net/minecraft/server/players/PlayerList.java
-index 91feb12732564c90656da487664dbc12e55397fc..82fd3a5d4a93880f9895eb0f3b4fdb33df8fdcf9 100644
+index 1e5f709115007ff19901c0a6c3cf884d9e4d3a6c..51bb5bb62c671eaf2f520c7258ca1cce36834e3b 100644
 --- a/src/main/java/net/minecraft/server/players/PlayerList.java
 +++ b/src/main/java/net/minecraft/server/players/PlayerList.java
-@@ -843,8 +843,15 @@ public abstract class PlayerList {
+@@ -844,8 +844,15 @@ public abstract class PlayerList {
          entityplayer.wonGame = false;
          // CraftBukkit end
  
@@ -75,10 +75,10 @@ index 91feb12732564c90656da487664dbc12e55397fc..82fd3a5d4a93880f9895eb0f3b4fdb33
          entityplayer1.setMainArm(entityplayer.getMainArm());
          Iterator iterator = entityplayer.getTags().iterator();
 diff --git a/src/main/java/net/minecraft/world/entity/Entity.java b/src/main/java/net/minecraft/world/entity/Entity.java
-index 0f2af6968f6bb47f5ef7e3f63cbfdc2f6df53999..2b474bf3d2c5afd9e1ef6f5922f35b04fe711b39 100644
+index 5c5c8fbd562b46f8699be97353447eaab36c007a..c19a8359289d4ae3ea505ba978914b152b64342c 100644
 --- a/src/main/java/net/minecraft/world/entity/Entity.java
 +++ b/src/main/java/net/minecraft/world/entity/Entity.java
-@@ -3644,6 +3644,11 @@ public abstract class Entity implements Nameable, EntityAccess, CommandSource, S
+@@ -3660,6 +3660,11 @@ public abstract class Entity implements Nameable, EntityAccess, CommandSource, S
          }
          // Paper end - Fix item duplication and teleport issues
          if (this.level() instanceof ServerLevel && !this.isRemoved()) {
@@ -90,7 +90,7 @@ index 0f2af6968f6bb47f5ef7e3f63cbfdc2f6df53999..2b474bf3d2c5afd9e1ef6f5922f35b04
              this.level().getProfiler().push("changeDimension");
              // CraftBukkit start
              // this.unRide();
-@@ -3738,6 +3743,11 @@ public abstract class Entity implements Nameable, EntityAccess, CommandSource, S
+@@ -3754,6 +3759,11 @@ public abstract class Entity implements Nameable, EntityAccess, CommandSource, S
          if (destination == null) {
              return null;
          }
@@ -103,10 +103,10 @@ index 0f2af6968f6bb47f5ef7e3f63cbfdc2f6df53999..2b474bf3d2c5afd9e1ef6f5922f35b04
          boolean flag1 = destination.getTypeKey() == LevelStem.END; // targetIsEnd
          // CraftBukkit end
 diff --git a/src/main/java/net/minecraft/world/entity/player/Player.java b/src/main/java/net/minecraft/world/entity/player/Player.java
-index 5ca1f834f311a87323ced2578535e66efa14e47f..f7b88c3215635e60d1448bb6cf57410148bd088e 100644
+index 567704f61034363e48ef2a5b5566ebdc91682297..badeaf695cfd617fc489c7ecb10e0c289f103b90 100644
 --- a/src/main/java/net/minecraft/world/entity/player/Player.java
 +++ b/src/main/java/net/minecraft/world/entity/player/Player.java
-@@ -187,6 +187,40 @@ public abstract class Player extends LivingEntity {
+@@ -188,6 +188,40 @@ public abstract class Player extends LivingEntity {
      public boolean fauxSleeping;
      public int oldLevel = -1;
  
@@ -147,7 +147,7 @@ index 5ca1f834f311a87323ced2578535e66efa14e47f..f7b88c3215635e60d1448bb6cf574101
      @Override
      public CraftHumanEntity getBukkitEntity() {
          return (CraftHumanEntity) super.getBukkitEntity();
-@@ -200,6 +234,7 @@ public abstract class Player extends LivingEntity {
+@@ -201,6 +235,7 @@ public abstract class Player extends LivingEntity {
          this.lastDeathLocation = Optional.empty();
          this.setUUID(gameProfile.getId());
          this.gameProfile = gameProfile;
@@ -155,7 +155,7 @@ index 5ca1f834f311a87323ced2578535e66efa14e47f..f7b88c3215635e60d1448bb6cf574101
          this.inventoryMenu = new InventoryMenu(this.inventory, !world.isClientSide, this);
          this.containerMenu = this.inventoryMenu;
          this.moveTo((double) pos.getX() + 0.5D, (double) (pos.getY() + 1), (double) pos.getZ() + 0.5D, yaw, 0.0F);
-@@ -862,6 +897,15 @@ public abstract class Player extends LivingEntity {
+@@ -863,6 +898,15 @@ public abstract class Player extends LivingEntity {
  
          this.inventory.load(nbttaglist);
          this.inventory.selected = nbt.getInt("SelectedItemSlot");
@@ -171,7 +171,7 @@ index 5ca1f834f311a87323ced2578535e66efa14e47f..f7b88c3215635e60d1448bb6cf574101
          this.sleepCounter = nbt.getShort("SleepTimer");
          this.experienceProgress = nbt.getFloat("XpP");
          this.experienceLevel = nbt.getInt("XpLevel");
-@@ -901,8 +945,12 @@ public abstract class Player extends LivingEntity {
+@@ -902,8 +946,12 @@ public abstract class Player extends LivingEntity {
      public void addAdditionalSaveData(CompoundTag nbt) {
          super.addAdditionalSaveData(nbt);
          NbtUtils.addCurrentDataVersion(nbt);
