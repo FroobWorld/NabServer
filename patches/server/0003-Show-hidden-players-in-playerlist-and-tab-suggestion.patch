@@ -18,10 +18,10 @@ index 73180c617945610e11b777733655f9e2c4c1dd0c..aec6ec9bc92dc784ea1c2907b051a3f9
          List<ServerPlayer> list = players;
          // CraftBukkit end
 diff --git a/src/main/java/net/minecraft/server/players/PlayerList.java b/src/main/java/net/minecraft/server/players/PlayerList.java
-index 51bb5bb62c671eaf2f520c7258ca1cce36834e3b..78a2cd8163f727de0081f0b9dfc152e185a5324c 100644
+index 34073b0a94feecaea9fcef58063b0330eb765234..d54a16d5a547eb96edd618b449d2ea8e0df17c00 100644
 --- a/src/main/java/net/minecraft/server/players/PlayerList.java
 +++ b/src/main/java/net/minecraft/server/players/PlayerList.java
-@@ -363,7 +363,7 @@ public abstract class PlayerList {
+@@ -365,7 +365,7 @@ public abstract class PlayerList {
          for (int i = 0; i < this.players.size(); ++i) {
              ServerPlayer entityplayer1 = (ServerPlayer) this.players.get(i);
  
@@ -30,7 +30,7 @@ index 51bb5bb62c671eaf2f520c7258ca1cce36834e3b..78a2cd8163f727de0081f0b9dfc152e1
                  // Paper start - Add Listing API for Player
                  if (entityplayer1.getBukkitEntity().isListed(bukkitPlayer)) {
                  // Paper end - Add Listing API for Player
-@@ -376,7 +376,7 @@ public abstract class PlayerList {
+@@ -378,7 +378,7 @@ public abstract class PlayerList {
              }
  
              if (entityplayer1 == player || !bukkitPlayer.canSee(entityplayer1.getBukkitEntity())) { // Paper - Use single player info update packet on join; Don't include joining player
@@ -39,7 +39,7 @@ index 51bb5bb62c671eaf2f520c7258ca1cce36834e3b..78a2cd8163f727de0081f0b9dfc152e1
              }
  
              onlinePlayers.add(entityplayer1); // Paper - Use single player info update packet on join
-@@ -682,6 +682,7 @@ public abstract class PlayerList {
+@@ -680,6 +680,7 @@ public abstract class PlayerList {
              if (entityplayer2.getBukkitEntity().canSee(entityplayer.getBukkitEntity())) {
                  entityplayer2.connection.send(packet);
              } else {
@@ -47,7 +47,7 @@ index 51bb5bb62c671eaf2f520c7258ca1cce36834e3b..78a2cd8163f727de0081f0b9dfc152e1
                  entityplayer2.getBukkitEntity().onEntityRemove(entityplayer);
              }
          }
-@@ -1031,7 +1032,7 @@ public abstract class PlayerList {
+@@ -1030,7 +1031,7 @@ public abstract class PlayerList {
                  target.connection.send(new ClientboundPlayerInfoUpdatePacket(EnumSet.of(ClientboundPlayerInfoUpdatePacket.Action.UPDATE_LATENCY), this.players.stream().filter(new Predicate<ServerPlayer>() {
                      @Override
                      public boolean test(ServerPlayer input) {
@@ -57,10 +57,10 @@ index 51bb5bb62c671eaf2f520c7258ca1cce36834e3b..78a2cd8163f727de0081f0b9dfc152e1
                  }).collect(Collectors.toList())));
              }
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftServer.java b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-index 57bc460e9908ea6d701db46cd6597578899663a6..a7f650928d539e3247ec05051d9b8b24c5972573 100644
+index ca1a97011bd43bf914f16eb42aee8ed181a7602a..236f6c7aefd02b472b192e50111f11e7ea8ca24f 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-@@ -2565,7 +2565,7 @@ public final class CraftServer implements Server {
+@@ -2571,7 +2571,7 @@ public final class CraftServer implements Server {
          PlayerChatTabCompleteEvent event = new PlayerChatTabCompleteEvent(player, message, completions);
          String token = event.getLastToken();
          for (Player p : this.getOnlinePlayers()) {
@@ -70,28 +70,28 @@ index 57bc460e9908ea6d701db46cd6597578899663a6..a7f650928d539e3247ec05051d9b8b24
              }
          }
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
-index 616d2e479d91673695ade0db151a0099b568904f..12c04ca1307ed63046130f46a31f9e2698ec3949 100644
+index eddbbd0e9be3cb81d1030c0c9da829b9193ebc16..2a4befe66740763f1771b933bd26f68abaf8796a 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
-@@ -463,7 +463,7 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
-     public void playerListName(net.kyori.adventure.text.Component name) {
+@@ -540,7 +540,7 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
          getHandle().listName = name == null ? null : io.papermc.paper.adventure.PaperAdventure.asVanilla(name);
+         if (getHandle().connection == null) return; // Updates are possible before the player has fully joined
          for (ServerPlayer player : server.getHandle().players) {
 -            if (player.getBukkitEntity().canSee(this)) {
 +            if (player.getBukkitEntity().canSee(this) || true) { // Nabulus
                  player.connection.send(new ClientboundPlayerInfoUpdatePacket(ClientboundPlayerInfoUpdatePacket.Action.UPDATE_DISPLAY_NAME, getHandle()));
              }
          }
-@@ -493,7 +493,7 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
-         }
+@@ -571,7 +571,7 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
          this.getHandle().listName = name.equals(this.getName()) ? null : CraftChatMessage.fromStringOrNull(name);
+         if (this.getHandle().connection == null) return; // Paper - Updates are possible before the player has fully joined
          for (ServerPlayer player : (List<ServerPlayer>) this.server.getHandle().players) {
 -            if (player.getBukkitEntity().canSee(this)) {
 +            if (player.getBukkitEntity().canSee(this) || true) { // Nabulus
                  player.connection.send(new ClientboundPlayerInfoUpdatePacket(ClientboundPlayerInfoUpdatePacket.Action.UPDATE_DISPLAY_NAME, this.getHandle()));
              }
          }
-@@ -1946,11 +1946,16 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
+@@ -2024,11 +2024,16 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
          // Remove this entity from the hidden player's EntityTrackerEntry
          // Paper start
          Entity other = ((CraftEntity) entity).getHandle();
@@ -109,7 +109,7 @@ index 616d2e479d91673695ade0db151a0099b568904f..12c04ca1307ed63046130f46a31f9e26
          // Paper end
          ChunkMap tracker = ((ServerLevel) this.getHandle().level()).getChunkSource().chunkMap;
          ChunkMap.TrackedEntity entry = tracker.entityMap.get(other.getId());
-@@ -1959,7 +1964,7 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
+@@ -2037,7 +2042,7 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
          }
  
          // Remove the hidden entity from this player user list, if they're on it

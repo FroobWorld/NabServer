@@ -5,10 +5,10 @@ Subject: [PATCH] Add silent chest flag to players
 
 
 diff --git a/src/main/java/net/minecraft/world/entity/player/Player.java b/src/main/java/net/minecraft/world/entity/player/Player.java
-index badeaf695cfd617fc489c7ecb10e0c289f103b90..7cce12ec244af47970a3ede7e8384dc83114d636 100644
+index 30de8278fa546b15f0cf44bf2894957aa8d2d913..aa41558a2413175d111bc0adde602efc53d94155 100644
 --- a/src/main/java/net/minecraft/world/entity/player/Player.java
 +++ b/src/main/java/net/minecraft/world/entity/player/Player.java
-@@ -189,6 +189,7 @@ public abstract class Player extends LivingEntity {
+@@ -201,6 +201,7 @@ public abstract class Player extends LivingEntity {
      public int oldLevel = -1;
  
      // Nabulus start
@@ -17,10 +17,10 @@ index badeaf695cfd617fc489c7ecb10e0c289f103b90..7cce12ec244af47970a3ede7e8384dc8
      protected final Inventory creativeLevelInventory = new Inventory(this);
      private boolean inventoriesLoaded = false;
 diff --git a/src/main/java/net/minecraft/world/level/block/entity/ContainerOpenersCounter.java b/src/main/java/net/minecraft/world/level/block/entity/ContainerOpenersCounter.java
-index 7eccacb978f047a4774e58b11bc3f9ab3959b049..debc7165ea0af4ef4cb983e07c0a9f20c83696f8 100644
+index 86dce6796f92a5b0ae2b1bd837267c4e3f6754d0..ff1df9c403160adf7b9af7c7653d50731a3f071d 100644
 --- a/src/main/java/net/minecraft/world/level/block/entity/ContainerOpenersCounter.java
 +++ b/src/main/java/net/minecraft/world/level/block/entity/ContainerOpenersCounter.java
-@@ -40,6 +40,7 @@ public abstract class ContainerOpenersCounter {
+@@ -44,6 +44,7 @@ public abstract class ContainerOpenersCounter {
      protected abstract boolean isOwnContainer(Player player);
  
      public void incrementOpeners(Player player, Level world, BlockPos pos, BlockState state) {
@@ -28,7 +28,7 @@ index 7eccacb978f047a4774e58b11bc3f9ab3959b049..debc7165ea0af4ef4cb983e07c0a9f20
          int oldPower = Math.max(0, Math.min(15, this.openCount)); // CraftBukkit - Get power before new viewer is added
          int i = this.openCount++;
  
-@@ -63,6 +64,7 @@ public abstract class ContainerOpenersCounter {
+@@ -68,6 +69,7 @@ public abstract class ContainerOpenersCounter {
      }
  
      public void decrementOpeners(Player player, Level world, BlockPos pos, BlockState state) {
@@ -36,20 +36,20 @@ index 7eccacb978f047a4774e58b11bc3f9ab3959b049..debc7165ea0af4ef4cb983e07c0a9f20
          int oldPower = Math.max(0, Math.min(15, this.openCount)); // CraftBukkit - Get power before new viewer is added
          if (this.openCount == 0) return; // Paper - Prevent ContainerOpenersCounter openCount from going negative
          int i = this.openCount--;
-@@ -92,7 +94,7 @@ public abstract class ContainerOpenersCounter {
-         float f = 5.0F;
-         AABB axisalignedbb = new AABB((double) ((float) i - 5.0F), (double) ((float) j - 5.0F), (double) ((float) k - 5.0F), (double) ((float) (i + 1) + 5.0F), (double) ((float) (j + 1) + 5.0F), (double) ((float) (k + 1) + 5.0F));
+@@ -95,7 +97,7 @@ public abstract class ContainerOpenersCounter {
+         double d0 = this.maxInteractionRange + 4.0D;
+         AABB axisalignedbb = (new AABB(pos)).inflate(d0);
  
--        return world.getEntities(EntityTypeTest.forClass(Player.class), axisalignedbb, this::isOwnContainer).size();
-+        return world.getEntities(EntityTypeTest.forClass(Player.class), axisalignedbb, player -> this.isOwnContainer(player) && !player.silentChests).size(); // Nabulus - add silent chest check
+-        return world.getEntities(EntityTypeTest.forClass(Player.class), axisalignedbb, this::isOwnContainer);
++        return world.getEntities(EntityTypeTest.forClass(Player.class), axisalignedbb, player -> this.isOwnContainer(player) && !player.silentChests); // Nabulus - add silent chest check
      }
  
      public void recheckOpeners(Level world, BlockPos pos, BlockState state) {
 diff --git a/src/main/java/net/minecraft/world/level/block/entity/ShulkerBoxBlockEntity.java b/src/main/java/net/minecraft/world/level/block/entity/ShulkerBoxBlockEntity.java
-index 1fa22445a4ecc8c08dbcf0cc6bd39dc5003604c4..d31fb10742f6570c248e80467495f796f8aefa5c 100644
+index 0d68db20f5fbe5e834f12c1e8fd429099a44e4b6..b14b82a9c38dad5153958a0b25e3f20e863ea831 100644
 --- a/src/main/java/net/minecraft/world/level/block/entity/ShulkerBoxBlockEntity.java
 +++ b/src/main/java/net/minecraft/world/level/block/entity/ShulkerBoxBlockEntity.java
-@@ -201,7 +201,7 @@ public class ShulkerBoxBlockEntity extends RandomizableContainerBlockEntity impl
+@@ -202,7 +202,7 @@ public class ShulkerBoxBlockEntity extends RandomizableContainerBlockEntity impl
  
      @Override
      public void startOpen(Player player) {
@@ -58,7 +58,7 @@ index 1fa22445a4ecc8c08dbcf0cc6bd39dc5003604c4..d31fb10742f6570c248e80467495f796
              if (this.openCount < 0) {
                  this.openCount = 0;
              }
-@@ -219,7 +219,7 @@ public class ShulkerBoxBlockEntity extends RandomizableContainerBlockEntity impl
+@@ -220,7 +220,7 @@ public class ShulkerBoxBlockEntity extends RandomizableContainerBlockEntity impl
  
      @Override
      public void stopOpen(Player player) {

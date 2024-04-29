@@ -5,10 +5,10 @@ Subject: [PATCH] Throttle spawn attempts after consistent failures
 
 
 diff --git a/src/main/java/net/minecraft/world/level/NaturalSpawner.java b/src/main/java/net/minecraft/world/level/NaturalSpawner.java
-index 661acdf4b1f33d150b0caf179e925d3162d7be35..1819e2fbbd3c384e461e147d3097ff324bdd0cb6 100644
+index ed8032495af9ce9c23419224814b8d27e4a97c17..318c8ea92795ebed7af765a5c2c6a73a10106572 100644
 --- a/src/main/java/net/minecraft/world/level/NaturalSpawner.java
 +++ b/src/main/java/net/minecraft/world/level/NaturalSpawner.java
-@@ -144,9 +144,10 @@ public final class NaturalSpawner {
+@@ -139,9 +139,10 @@ public final class NaturalSpawner {
              // CraftBukkit start - Use per-world spawn limits
              boolean spawnThisTick = true;
              int limit = enumcreaturetype.getMaxInstancesPerChunk();
@@ -20,7 +20,7 @@ index 661acdf4b1f33d150b0caf179e925d3162d7be35..1819e2fbbd3c384e461e147d3097ff32
                  limit = world.getWorld().getSpawnLimit(spawnCategory);
              }
  
-@@ -183,6 +184,13 @@ public final class NaturalSpawner {
+@@ -178,6 +179,13 @@ public final class NaturalSpawner {
                      difference, world.paperConfig().entities.spawning.perPlayerMobSpawns ? world.getChunkSource().chunkMap::updatePlayerMobTypeMap : null);
                  info.mobCategoryCounts.mergeInt(enumcreaturetype, spawnCount, Integer::sum);
                  // Paper end - Optional per player mob spawns
@@ -35,14 +35,14 @@ index 661acdf4b1f33d150b0caf179e925d3162d7be35..1819e2fbbd3c384e461e147d3097ff32
          }
  
 diff --git a/src/main/java/net/minecraft/world/level/chunk/LevelChunk.java b/src/main/java/net/minecraft/world/level/chunk/LevelChunk.java
-index 922191159fadf8e89646d7299aadee4aa851f71a..c78aae30d7b701aa0e520618166870647988ccf3 100644
+index 2a8609e33716949ff1877b6d10f64a9d7a7c81e9..10c48de90a6f4599f0bb2db4a2278d8a559b84d8 100644
 --- a/src/main/java/net/minecraft/world/level/chunk/LevelChunk.java
 +++ b/src/main/java/net/minecraft/world/level/chunk/LevelChunk.java
-@@ -85,6 +85,7 @@ public class LevelChunk extends ChunkAccess {
+@@ -87,6 +87,7 @@ public class LevelChunk extends ChunkAccess {
      private final LevelChunkTicks<Block> blockTicks;
      private final LevelChunkTicks<Fluid> fluidTicks;
      public volatile FullChunkStatus chunkStatus = FullChunkStatus.INACCESSIBLE; // Paper - rewrite chunk system
 +    public final Map<net.minecraft.world.entity.MobCategory, Integer> failedSpawnAttempts = new java.util.EnumMap<>(net.minecraft.world.entity.MobCategory.class); // Nabulus
  
-     // Pufferfish start - instead of using a random every time the chunk is ticked, define when lightning strikes preemptively
-     private int lightningTick;
+     public LevelChunk(Level world, ChunkPos pos) {
+         this(world, pos, UpgradeData.EMPTY, new LevelChunkTicks<>(), new LevelChunkTicks<>(), 0L, (LevelChunkSection[]) null, (LevelChunk.PostLoadProcessor) null, (BlendingData) null);

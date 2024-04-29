@@ -5,10 +5,10 @@ Subject: [PATCH] Don't show smoke for silent fireworks
 
 
 diff --git a/src/main/java/net/minecraft/world/entity/projectile/FireworkRocketEntity.java b/src/main/java/net/minecraft/world/entity/projectile/FireworkRocketEntity.java
-index 5b3b59057b962438c6f4fc8a1507342865b3bc11..9b70689b75514dca0c802a3dee8c16f8f24afa43 100644
+index 3df4005b6ddc075e5922c1e96e4ceb21d8b8ea43..825d8652c6ccd75a178b691334b663b54411c336 100644
 --- a/src/main/java/net/minecraft/world/entity/projectile/FireworkRocketEntity.java
 +++ b/src/main/java/net/minecraft/world/entity/projectile/FireworkRocketEntity.java
-@@ -173,7 +173,7 @@ public class FireworkRocketEntity extends Projectile implements ItemSupplier {
+@@ -176,7 +176,7 @@ public class FireworkRocketEntity extends Projectile implements ItemSupplier {
          }
  
          ++this.life;

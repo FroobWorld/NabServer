@@ -5,10 +5,10 @@ Subject: [PATCH] Implement tick rate options for OneShot behaviors
 
 
 diff --git a/src/main/java/net/minecraft/world/entity/ai/behavior/Behavior.java b/src/main/java/net/minecraft/world/entity/ai/behavior/Behavior.java
-index 1e71cde7cb7654f1c21ae5e27e2fad7b58f593eb..9764d59012c8e1dac52a8134811fe09a453b7cd6 100644
+index 9379dd4056018b52c93ed4888dcdc94579bd9691..5b7f5ae6c2046d8aec59c348a12a028249fe466f 100644
 --- a/src/main/java/net/minecraft/world/entity/ai/behavior/Behavior.java
 +++ b/src/main/java/net/minecraft/world/entity/ai/behavior/Behavior.java
-@@ -17,6 +17,16 @@ public abstract class Behavior<E extends LivingEntity> implements BehaviorContro
+@@ -18,6 +18,16 @@ public abstract class Behavior<E extends LivingEntity> implements BehaviorContro
      private final String configKey;
      private final co.aikar.timings.Timing timing;
      // Paper end - configurable behavior tick rate and timings
@@ -25,11 +25,11 @@ index 1e71cde7cb7654f1c21ae5e27e2fad7b58f593eb..9764d59012c8e1dac52a8134811fe09a
  
      public Behavior(Map<MemoryModuleType<?>, MemoryStatus> requiredMemoryState) {
          this(requiredMemoryState, 60);
-@@ -31,12 +41,7 @@ public abstract class Behavior<E extends LivingEntity> implements BehaviorContro
+@@ -32,12 +42,7 @@ public abstract class Behavior<E extends LivingEntity> implements BehaviorContro
          this.maxDuration = maxRunTime;
          this.entryCondition = requiredMemoryState;
          // Paper start - configurable behavior tick rate and timings
--        String key = io.papermc.paper.util.ObfHelper.INSTANCE.deobfClassName(this.getClass().getName());
+-        String key = io.papermc.paper.util.MappingEnvironment.reobf() ? io.papermc.paper.util.ObfHelper.INSTANCE.deobfClassName(this.getClass().getName()) : this.getClass().getName();
 -        int lastSeparator = key.lastIndexOf('.');
 -        if (lastSeparator != -1) {
 -            key = key.substring(lastSeparator + 1);
@@ -88,13 +88,13 @@ index dde5c53550ddbdfc8288f725468924b35ea5b05e..ca2d3a0f67a2f07ec33394d1aa3f2ca2
          }
      }
 diff --git a/src/main/java/net/minecraft/world/entity/ai/behavior/declarative/BehaviorBuilder.java b/src/main/java/net/minecraft/world/entity/ai/behavior/declarative/BehaviorBuilder.java
-index 6f323026b2d6fb5151e8b9dd9466e96eb026ccbd..de1ca4785a06eabf3343bee6f337982898f0e21c 100644
+index 79326bab2c18aa8b488c8cb11c0dd18b1ea5e495..c1711ab106357c5d0663d76bbde73d2c889e066d 100644
 --- a/src/main/java/net/minecraft/world/entity/ai/behavior/declarative/BehaviorBuilder.java
 +++ b/src/main/java/net/minecraft/world/entity/ai/behavior/declarative/BehaviorBuilder.java
 @@ -35,7 +35,15 @@ public class BehaviorBuilder<E extends LivingEntity, M> implements App<BehaviorB
  
      public static <E extends LivingEntity> OneShot<E> create(Function<BehaviorBuilder.Instance<E>, ? extends App<BehaviorBuilder.Mu<E>, Trigger<E>>> creator) {
-         final BehaviorBuilder.TriggerWithResult<E, Trigger<E>> triggerWithResult = get(creator.apply(instance()));
+         final BehaviorBuilder.TriggerWithResult<E, Trigger<E>> triggerWithResult = get((App<BehaviorBuilder.Mu<E>, Trigger<E>>)creator.apply(instance()));
 -        return new OneShot<E>() {
 +        // Nabulus start - configurable tick rates
 +        java.lang.StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();

@@ -5,10 +5,10 @@ Subject: [PATCH] Allow players to hide wither boss bar
 
 
 diff --git a/src/main/java/net/minecraft/world/entity/boss/wither/WitherBoss.java b/src/main/java/net/minecraft/world/entity/boss/wither/WitherBoss.java
-index de2471cfa96a23944f229f33ffdff88b6b7756e4..dd3c894d766b88ac288cc4ea35c21efe6eb4f2d7 100644
+index 7ddca52f7fe3f289b4b867e134326b1ead1a2aee..fe9c1e93295a6311abe56091ba329f7d5885c742 100644
 --- a/src/main/java/net/minecraft/world/entity/boss/wither/WitherBoss.java
 +++ b/src/main/java/net/minecraft/world/entity/boss/wither/WitherBoss.java
-@@ -90,6 +90,21 @@ public class WitherBoss extends Monster implements PowerableMob, RangedAttackMob
+@@ -93,6 +93,21 @@ public class WitherBoss extends Monster implements PowerableMob, RangedAttackMob
  
      public void setCanTravelThroughPortals(boolean canPortal) { this.canPortal = canPortal; }
      // Paper end
@@ -30,7 +30,7 @@ index de2471cfa96a23944f229f33ffdff88b6b7756e4..dd3c894d766b88ac288cc4ea35c21efe
  
      public WitherBoss(EntityType<? extends WitherBoss> type, Level world) {
          super(type, world);
-@@ -148,6 +163,7 @@ public class WitherBoss extends Monster implements PowerableMob, RangedAttackMob
+@@ -151,6 +166,7 @@ public class WitherBoss extends Monster implements PowerableMob, RangedAttackMob
      @Override
      public void setCustomName(@Nullable Component name) {
          super.setCustomName(name);
@@ -38,7 +38,7 @@ index de2471cfa96a23944f229f33ffdff88b6b7756e4..dd3c894d766b88ac288cc4ea35c21efe
          this.bossEvent.setName(this.getDisplayName());
      }
  
-@@ -422,7 +438,7 @@ public class WitherBoss extends Monster implements PowerableMob, RangedAttackMob
+@@ -415,7 +431,7 @@ public class WitherBoss extends Monster implements PowerableMob, RangedAttackMob
      @Override
      public void startSeenByPlayer(ServerPlayer player) {
          super.startSeenByPlayer(player);
