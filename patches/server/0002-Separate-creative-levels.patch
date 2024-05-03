@@ -4,6 +4,18 @@ Date: Sun, 27 Feb 2022 21:27:01 +0930
 Subject: [PATCH] Separate creative levels
 
 
+diff --git a/src/main/java/ca/spottedleaf/dataconverter/minecraft/versions/V1022.java b/src/main/java/ca/spottedleaf/dataconverter/minecraft/versions/V1022.java
+index c1510d9167f466d3b7e3756353224f12f3876442..d4f0561741e71e10bf08448a0237320728cc3629 100644
+--- a/src/main/java/ca/spottedleaf/dataconverter/minecraft/versions/V1022.java
++++ b/src/main/java/ca/spottedleaf/dataconverter/minecraft/versions/V1022.java
+@@ -15,6 +15,7 @@ public final class V1022 {
+ 
+             WalkerUtils.convertList(MCTypeRegistry.ITEM_STACK, data, "Inventory", fromVersion, toVersion);
+             WalkerUtils.convertList(MCTypeRegistry.ITEM_STACK, data, "EnderItems", fromVersion, toVersion);
++            WalkerUtils.convertList(MCTypeRegistry.ITEM_STACK, data, "Nabulus.CreativeLevelInventory", fromVersion, toVersion);
+ 
+             WalkerUtils.convert(MCTypeRegistry.ENTITY, data, "ShoulderEntityLeft", fromVersion, toVersion);
+             WalkerUtils.convert(MCTypeRegistry.ENTITY, data, "ShoulderEntityRight", fromVersion, toVersion);
 diff --git a/src/main/java/net/minecraft/server/level/ServerPlayer.java b/src/main/java/net/minecraft/server/level/ServerPlayer.java
 index 8437316888c6056060a2780652147590b6fe7443..958be8c6dadfea073a12a2c949475390bd24f9a4 100644
 --- a/src/main/java/net/minecraft/server/level/ServerPlayer.java
@@ -103,7 +115,7 @@ index 2bc85351e6e52f90da5fdb29d8d042a06132d742..86aab21566f3f48b5d0fe43d9cbcb16f
          boolean flag1 = destination.getTypeKey() == LevelStem.END; // targetIsEnd
          // CraftBukkit end
 diff --git a/src/main/java/net/minecraft/world/entity/player/Player.java b/src/main/java/net/minecraft/world/entity/player/Player.java
-index 72b3e64cf6d184e90a6e2c0d822b83312312d67d..30de8278fa546b15f0cf44bf2894957aa8d2d913 100644
+index 093d1388ff90ad59110a37536b6639f939549068..2cbb63c8ef638a4e570a9436ee5fe1aba60fe150 100644
 --- a/src/main/java/net/minecraft/world/entity/player/Player.java
 +++ b/src/main/java/net/minecraft/world/entity/player/Player.java
 @@ -200,6 +200,40 @@ public abstract class Player extends LivingEntity {
