@@ -4,7 +4,7 @@ plugins {
     java
     `maven-publish`
     id("com.github.johnrengelman.shadow") version "8.1.0" apply false
-    id("io.papermc.paperweight.patcher") version "1.6.3"
+    id("io.papermc.paperweight.patcher") version "1.7.1"
 }
 
 repositories {
@@ -110,7 +110,6 @@ paperweight {
 
 tasks.generateDevelopmentBundle {
     apiCoordinates.set("com.froobworld.nabulus:nabulus-api")
-    mojangApiCoordinates.set("io.papermc.paper:paper-mojangapi")
     libraryRepositories.set(
         listOf(
             "https://repo.maven.apache.org/maven2/",

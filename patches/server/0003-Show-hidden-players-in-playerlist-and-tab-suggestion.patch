@@ -57,10 +57,10 @@ index 34073b0a94feecaea9fcef58063b0330eb765234..d54a16d5a547eb96edd618b449d2ea8e
                  }).collect(Collectors.toList())));
              }
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftServer.java b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-index f9a6b74d868f4639c5aa01920b99a3a8d7ee9418..9957f7e3b37572bdb518dc1cc37966df58a907f3 100644
+index af015237214cebc4d1c4bb9e9c5f939d433e365c..e36e04603e2d14e1e386d90f818db63032702043 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-@@ -2571,7 +2571,7 @@ public final class CraftServer implements Server {
+@@ -2552,7 +2552,7 @@ public final class CraftServer implements Server {
          PlayerChatTabCompleteEvent event = new PlayerChatTabCompleteEvent(player, message, completions);
          String token = event.getLastToken();
          for (Player p : this.getOnlinePlayers()) {
@@ -70,7 +70,7 @@ index f9a6b74d868f4639c5aa01920b99a3a8d7ee9418..9957f7e3b37572bdb518dc1cc37966df
              }
          }
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
-index 5f896948d158651cd9837364759dbfbcce6b7d21..01b1f37a5c2c01ff3f16915e199fb6a7d3eccac1 100644
+index 7e6116963d835d4606ef3d93b69d3e44b61288e1..7e1831ecb674518e55dff1ee2287f55ff6f47cbc 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
 @@ -549,7 +549,7 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
