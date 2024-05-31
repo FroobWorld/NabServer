@@ -17,10 +17,10 @@ index c1510d9167f466d3b7e3756353224f12f3876442..d4f0561741e71e10bf08448a02373207
              WalkerUtils.convert(MCTypeRegistry.ENTITY, data, "ShoulderEntityLeft", fromVersion, toVersion);
              WalkerUtils.convert(MCTypeRegistry.ENTITY, data, "ShoulderEntityRight", fromVersion, toVersion);
 diff --git a/src/main/java/net/minecraft/server/level/ServerPlayer.java b/src/main/java/net/minecraft/server/level/ServerPlayer.java
-index a645ad66af061966c5e47cae677026b35a55c486..4e5fa4f4a4a1c4dd6d430d6ca715864b2e4f0617 100644
+index 6a4637eef14cbd84bbe26ef16f004b8f93367a3d..3ad160cec7cd67cbafa273493ff466a321685ccb 100644
 --- a/src/main/java/net/minecraft/server/level/ServerPlayer.java
 +++ b/src/main/java/net/minecraft/server/level/ServerPlayer.java
-@@ -706,6 +706,7 @@ public class ServerPlayer extends Player {
+@@ -707,6 +707,7 @@ public class ServerPlayer extends Player {
              this.setPosRaw(position.x(), position.y(), position.z()); // Paper - don't register to chunks yet
          }
          this.gameMode.setLevel((ServerLevel) world);
@@ -28,7 +28,7 @@ index a645ad66af061966c5e47cae677026b35a55c486..4e5fa4f4a4a1c4dd6d430d6ca715864b
      }
      // CraftBukkit end
  
-@@ -1328,6 +1329,7 @@ public class ServerPlayer extends Player {
+@@ -1329,6 +1330,7 @@ public class ServerPlayer extends Player {
  
                  // CraftBukkit end
                  this.setServerLevel(worldserver);
@@ -36,7 +36,7 @@ index a645ad66af061966c5e47cae677026b35a55c486..4e5fa4f4a4a1c4dd6d430d6ca715864b
                  this.connection.teleport(exit); // CraftBukkit - use internal teleport without event
                  this.connection.resetPosition();
                  worldserver.addDuringPortalTeleport(this);
-@@ -2005,10 +2007,20 @@ public class ServerPlayer extends Player {
+@@ -2006,10 +2008,20 @@ public class ServerPlayer extends Player {
      }
  
      public void restoreFrom(ServerPlayer oldPlayer, boolean alive) {
@@ -57,7 +57,7 @@ index a645ad66af061966c5e47cae677026b35a55c486..4e5fa4f4a4a1c4dd6d430d6ca715864b
          if (alive) {
              this.getInventory().replaceWith(oldPlayer.getInventory());
              this.setHealth(oldPlayer.getHealth());
-@@ -2036,6 +2048,7 @@ public class ServerPlayer extends Player {
+@@ -2037,6 +2049,7 @@ public class ServerPlayer extends Player {
          this.seenCredits = oldPlayer.seenCredits;
          this.enteredNetherPosition = oldPlayer.enteredNetherPosition;
          this.chunkTrackingView = oldPlayer.chunkTrackingView;
@@ -87,10 +87,10 @@ index a2142930b4d4b05987c90496fb9d733d99040aa0..34073b0a94feecaea9fcef58063b0330
          entityplayer1.setMainArm(entityplayer.getMainArm());
          Iterator iterator = entityplayer.getTags().iterator();
 diff --git a/src/main/java/net/minecraft/world/entity/Entity.java b/src/main/java/net/minecraft/world/entity/Entity.java
-index 25ea45a528612d1a2a2d77293b3802f473a52f38..db86b4001be9435df8f622fcea5b4ab3707afb5e 100644
+index 7ef9f67d27cc240191dd5d07e8dcf5fbdebe1049..228f16d06e16b56fb0abaf33c3e8c9efa639261b 100644
 --- a/src/main/java/net/minecraft/world/entity/Entity.java
 +++ b/src/main/java/net/minecraft/world/entity/Entity.java
-@@ -3704,6 +3704,11 @@ public abstract class Entity implements SyncedDataHolder, Nameable, EntityAccess
+@@ -3703,6 +3703,11 @@ public abstract class Entity implements SyncedDataHolder, Nameable, EntityAccess
          }
          // Paper end - Fix item duplication and teleport issues
          if (this.level() instanceof ServerLevel && !this.isRemoved()) {
@@ -102,7 +102,7 @@ index 25ea45a528612d1a2a2d77293b3802f473a52f38..db86b4001be9435df8f622fcea5b4ab3
              this.level().getProfiler().push("changeDimension");
              // CraftBukkit start
              // this.unRide();
-@@ -3798,6 +3803,11 @@ public abstract class Entity implements SyncedDataHolder, Nameable, EntityAccess
+@@ -3797,6 +3802,11 @@ public abstract class Entity implements SyncedDataHolder, Nameable, EntityAccess
          if (destination == null) {
              return null;
          }
@@ -115,7 +115,7 @@ index 25ea45a528612d1a2a2d77293b3802f473a52f38..db86b4001be9435df8f622fcea5b4ab3
          boolean flag1 = destination.getTypeKey() == LevelStem.END; // targetIsEnd
          // CraftBukkit end
 diff --git a/src/main/java/net/minecraft/world/entity/player/Player.java b/src/main/java/net/minecraft/world/entity/player/Player.java
-index 686374e89e41b0917791264f3281f7384835bca8..bb7fe5a69e36f3f4260ef437b6652f432d57be81 100644
+index 25595bef64199c4ddbe69c65fd149eec33e778ad..dd57714273227e5d18a2e9c398c6d956ed8aca92 100644
 --- a/src/main/java/net/minecraft/world/entity/player/Player.java
 +++ b/src/main/java/net/minecraft/world/entity/player/Player.java
 @@ -200,6 +200,40 @@ public abstract class Player extends LivingEntity {
