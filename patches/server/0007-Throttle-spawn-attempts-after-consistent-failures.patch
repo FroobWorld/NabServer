@@ -35,13 +35,13 @@ index ed8032495af9ce9c23419224814b8d27e4a97c17..318c8ea92795ebed7af765a5c2c6a73a
          }
  
 diff --git a/src/main/java/net/minecraft/world/level/chunk/LevelChunk.java b/src/main/java/net/minecraft/world/level/chunk/LevelChunk.java
-index 2a8609e33716949ff1877b6d10f64a9d7a7c81e9..10c48de90a6f4599f0bb2db4a2278d8a559b84d8 100644
+index 435f5f0a17901f743bd565b28f9feb5d4058c819..2c012357bc23f73fda4fc0ba20e96ec6c5e6b672 100644
 --- a/src/main/java/net/minecraft/world/level/chunk/LevelChunk.java
 +++ b/src/main/java/net/minecraft/world/level/chunk/LevelChunk.java
-@@ -87,6 +87,7 @@ public class LevelChunk extends ChunkAccess {
+@@ -85,6 +85,7 @@ public class LevelChunk extends ChunkAccess implements ca.spottedleaf.moonrise.p
+     private final Int2ObjectMap<GameEventListenerRegistry> gameEventListenerRegistrySections;
      private final LevelChunkTicks<Block> blockTicks;
      private final LevelChunkTicks<Fluid> fluidTicks;
-     public volatile FullChunkStatus chunkStatus = FullChunkStatus.INACCESSIBLE; // Paper - rewrite chunk system
 +    public final Map<net.minecraft.world.entity.MobCategory, Integer> failedSpawnAttempts = new java.util.EnumMap<>(net.minecraft.world.entity.MobCategory.class); // Nabulus
  
      public LevelChunk(Level world, ChunkPos pos) {
