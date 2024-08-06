@@ -5,7 +5,7 @@ Subject: [PATCH] Allow players to hide wither boss bar
 
 
 diff --git a/src/main/java/net/minecraft/world/entity/boss/wither/WitherBoss.java b/src/main/java/net/minecraft/world/entity/boss/wither/WitherBoss.java
-index 7ddca52f7fe3f289b4b867e134326b1ead1a2aee..fe9c1e93295a6311abe56091ba329f7d5885c742 100644
+index 82921c56c49edb0ca07425da563aa4876d4e6fb1..83b2788fe8a5d12a4c73056110e3a922253c79d5 100644
 --- a/src/main/java/net/minecraft/world/entity/boss/wither/WitherBoss.java
 +++ b/src/main/java/net/minecraft/world/entity/boss/wither/WitherBoss.java
 @@ -93,6 +93,21 @@ public class WitherBoss extends Monster implements PowerableMob, RangedAttackMob
@@ -38,7 +38,7 @@ index 7ddca52f7fe3f289b4b867e134326b1ead1a2aee..fe9c1e93295a6311abe56091ba329f7d
          this.bossEvent.setName(this.getDisplayName());
      }
  
-@@ -415,7 +431,7 @@ public class WitherBoss extends Monster implements PowerableMob, RangedAttackMob
+@@ -422,7 +438,7 @@ public class WitherBoss extends Monster implements PowerableMob, RangedAttackMob
      @Override
      public void startSeenByPlayer(ServerPlayer player) {
          super.startSeenByPlayer(player);

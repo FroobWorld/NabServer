@@ -124,10 +124,10 @@ index 43eeb8ce4bc350c2b524ade11ca25d8d4d21bea5..3ae3ba6a0f048cdfe870e1ea2d1ee679
          if (dimensiontransition == null) {
              return entityplayer;
 diff --git a/src/main/java/net/minecraft/world/entity/Entity.java b/src/main/java/net/minecraft/world/entity/Entity.java
-index 1f7594e22f0f08ae110ef9b42f15119358aa5723..0c65c46a6b0ee1ef71a13f715294385a20b0be27 100644
+index 3f7812c55dae82433336d6e091aa83434615fa04..57e95261d53ef97525ec623eb90ad3c317195b8f 100644
 --- a/src/main/java/net/minecraft/world/entity/Entity.java
 +++ b/src/main/java/net/minecraft/world/entity/Entity.java
-@@ -3722,6 +3722,11 @@ public abstract class Entity implements SyncedDataHolder, Nameable, EntityAccess
+@@ -3731,6 +3731,11 @@ public abstract class Entity implements SyncedDataHolder, Nameable, EntityAccess
          // Paper end - Fix item duplication and teleport issues
          if (world instanceof ServerLevel worldserver) {
              if (!this.isRemoved()) {
