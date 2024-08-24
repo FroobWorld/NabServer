@@ -17,7 +17,7 @@ index c1510d9167f466d3b7e3756353224f12f3876442..d4f0561741e71e10bf08448a02373207
              WalkerUtils.convert(MCTypeRegistry.ENTITY, data, "ShoulderEntityLeft", fromVersion, toVersion);
              WalkerUtils.convert(MCTypeRegistry.ENTITY, data, "ShoulderEntityRight", fromVersion, toVersion);
 diff --git a/src/main/java/net/minecraft/server/level/ServerPlayer.java b/src/main/java/net/minecraft/server/level/ServerPlayer.java
-index 5980b70e2d7273239245237189b2debcbccfbac3..8608103860ac56b52f73f460eaa57a9d8a62296f 100644
+index 6c280abdef5f80b668d6090f9d35283a33e21e0c..b73bb378e86b60363bc5d7542890837a08881bd9 100644
 --- a/src/main/java/net/minecraft/server/level/ServerPlayer.java
 +++ b/src/main/java/net/minecraft/server/level/ServerPlayer.java
 @@ -697,6 +697,7 @@ public class ServerPlayer extends net.minecraft.world.entity.player.Player imple
@@ -28,7 +28,7 @@ index 5980b70e2d7273239245237189b2debcbccfbac3..8608103860ac56b52f73f460eaa57a9d
      }
      // CraftBukkit end
  
-@@ -1403,6 +1404,7 @@ public class ServerPlayer extends net.minecraft.world.entity.player.Player imple
+@@ -1402,6 +1403,7 @@ public class ServerPlayer extends net.minecraft.world.entity.player.Player imple
                  this.unsetRemoved();
                  // CraftBukkit end
                  this.setServerLevel(worldserver);
@@ -36,7 +36,7 @@ index 5980b70e2d7273239245237189b2debcbccfbac3..8608103860ac56b52f73f460eaa57a9d
                  this.connection.teleport(exit); // CraftBukkit - use internal teleport without event
                  this.connection.resetPosition();
                  worldserver.addDuringTeleport(this);
-@@ -2032,12 +2034,22 @@ public class ServerPlayer extends net.minecraft.world.entity.player.Player imple
+@@ -2031,12 +2033,22 @@ public class ServerPlayer extends net.minecraft.world.entity.player.Player imple
      }
  
      public void restoreFrom(ServerPlayer oldPlayer, boolean alive) {
@@ -59,7 +59,7 @@ index 5980b70e2d7273239245237189b2debcbccfbac3..8608103860ac56b52f73f460eaa57a9d
          if (alive) {
              this.getInventory().replaceWith(oldPlayer.getInventory());
              this.setHealth(oldPlayer.getHealth());
-@@ -2073,6 +2085,7 @@ public class ServerPlayer extends net.minecraft.world.entity.player.Player imple
+@@ -2072,6 +2084,7 @@ public class ServerPlayer extends net.minecraft.world.entity.player.Player imple
          this.seenCredits = oldPlayer.seenCredits;
          this.enteredNetherPosition = oldPlayer.enteredNetherPosition;
          this.chunkTrackingView = oldPlayer.chunkTrackingView;
@@ -68,7 +68,7 @@ index 5980b70e2d7273239245237189b2debcbccfbac3..8608103860ac56b52f73f460eaa57a9d
          this.setShoulderEntityRight(oldPlayer.getShoulderEntityRight());
          this.setLastDeathLocation(oldPlayer.getLastDeathLocation());
 diff --git a/src/main/java/net/minecraft/server/players/PlayerList.java b/src/main/java/net/minecraft/server/players/PlayerList.java
-index 43eeb8ce4bc350c2b524ade11ca25d8d4d21bea5..3ae3ba6a0f048cdfe870e1ea2d1ee6792e24ba38 100644
+index 0368d6ba9cc9fe557d3c7172a87a7a5b15445e47..3c61cfed065c6df6274ea5a68388469267e60e73 100644
 --- a/src/main/java/net/minecraft/server/players/PlayerList.java
 +++ b/src/main/java/net/minecraft/server/players/PlayerList.java
 @@ -819,9 +819,27 @@ public abstract class PlayerList {
@@ -114,7 +114,7 @@ index 43eeb8ce4bc350c2b524ade11ca25d8d4d21bea5..3ae3ba6a0f048cdfe870e1ea2d1ee679
          DimensionTransition dimensiontransition;
          if (location == null) {
              dimensiontransition = entityplayer.findRespawnPositionAndUseSpawnBlock(flag, DimensionTransition.DO_NOTHING, reason);
-@@ -854,6 +874,8 @@ public abstract class PlayerList {
+@@ -857,6 +877,8 @@ public abstract class PlayerList {
          } else {
              dimensiontransition = new DimensionTransition(((CraftWorld) location.getWorld()).getHandle(), CraftLocation.toVec3D(location), Vec3.ZERO, location.getYaw(), location.getPitch(), DimensionTransition.DO_NOTHING);
          }
@@ -240,7 +240,7 @@ index 09bcbc0ae36e4e69fee87a7e0c49acf496117a39..591797efe64ca85da29fb876d00cf7fa
          nbt.putFloat("XpP", this.experienceProgress);
          nbt.putInt("XpLevel", this.experienceLevel);
 diff --git a/src/main/java/net/minecraft/world/level/storage/LevelStorageSource.java b/src/main/java/net/minecraft/world/level/storage/LevelStorageSource.java
-index 427ee4d6f12a7abd8da0c65e0b9081b25824df40..cc8aa371510b056d80a0cd87afbd075c467cd202 100644
+index 85ba843ce7e1f62971e736fa2cc028c47b274ce4..dfcea62791961e82bc1f0dd26632d239a8322cda 100644
 --- a/src/main/java/net/minecraft/world/level/storage/LevelStorageSource.java
 +++ b/src/main/java/net/minecraft/world/level/storage/LevelStorageSource.java
 @@ -167,6 +167,7 @@ public class LevelStorageSource {

@@ -18,7 +18,7 @@ index 73180c617945610e11b777733655f9e2c4c1dd0c..aec6ec9bc92dc784ea1c2907b051a3f9
          List<ServerPlayer> list = players;
          // CraftBukkit end
 diff --git a/src/main/java/net/minecraft/server/players/PlayerList.java b/src/main/java/net/minecraft/server/players/PlayerList.java
-index 3ae3ba6a0f048cdfe870e1ea2d1ee6792e24ba38..d7bcbc460a53490cbfca2c695bdad244f5e1f8e0 100644
+index 3c61cfed065c6df6274ea5a68388469267e60e73..a3c75398898d5593f7231961624009730f3f3e27 100644
 --- a/src/main/java/net/minecraft/server/players/PlayerList.java
 +++ b/src/main/java/net/minecraft/server/players/PlayerList.java
 @@ -365,7 +365,7 @@ public abstract class PlayerList {
@@ -47,7 +47,7 @@ index 3ae3ba6a0f048cdfe870e1ea2d1ee6792e24ba38..d7bcbc460a53490cbfca2c695bdad244
                  entityplayer2.getBukkitEntity().onEntityRemove(entityplayer);
              }
          }
-@@ -999,7 +1000,7 @@ public abstract class PlayerList {
+@@ -1002,7 +1003,7 @@ public abstract class PlayerList {
                  target.connection.send(new ClientboundPlayerInfoUpdatePacket(EnumSet.of(ClientboundPlayerInfoUpdatePacket.Action.UPDATE_LATENCY), this.players.stream().filter(new Predicate<ServerPlayer>() {
                      @Override
                      public boolean test(ServerPlayer input) {
@@ -57,7 +57,7 @@ index 3ae3ba6a0f048cdfe870e1ea2d1ee6792e24ba38..d7bcbc460a53490cbfca2c695bdad244
                  }).collect(Collectors.toList())));
              }
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftServer.java b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-index c8b82bc41f2042bb4b067f06265a3a22e51f7629..f5cf96f1a534396ba0a769e06dcd879732b3cd77 100644
+index 1b36e94617d4e777c419660936460d5cf8a4b3e8..6a6d07452819c10b3e0dd53e0d759bba9335c74f 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 @@ -2598,7 +2598,7 @@ public final class CraftServer implements Server {
@@ -70,7 +70,7 @@ index c8b82bc41f2042bb4b067f06265a3a22e51f7629..f5cf96f1a534396ba0a769e06dcd8797
              }
          }
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
-index 992437a6e838f653f32d33b5b3f702c484640a97..6e4e47cc7e428038736468bbe9df955627565b30 100644
+index a0d5082590ee03060f0dbb4770d196efc316c328..7412679974a42973ba0d9c654e02fa41ae8c6adb 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
 @@ -551,7 +551,7 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
