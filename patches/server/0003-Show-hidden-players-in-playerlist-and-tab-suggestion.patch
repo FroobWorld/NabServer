@@ -18,7 +18,7 @@ index 73180c617945610e11b777733655f9e2c4c1dd0c..aec6ec9bc92dc784ea1c2907b051a3f9
          List<ServerPlayer> list = players;
          // CraftBukkit end
 diff --git a/src/main/java/net/minecraft/server/players/PlayerList.java b/src/main/java/net/minecraft/server/players/PlayerList.java
-index 3c61cfed065c6df6274ea5a68388469267e60e73..a3c75398898d5593f7231961624009730f3f3e27 100644
+index 69fedcdafa25a9015546ae1367b1a65f6cecbe9a..ab4879409c44d3ee38442e958d461a694d1f6426 100644
 --- a/src/main/java/net/minecraft/server/players/PlayerList.java
 +++ b/src/main/java/net/minecraft/server/players/PlayerList.java
 @@ -365,7 +365,7 @@ public abstract class PlayerList {
@@ -47,7 +47,7 @@ index 3c61cfed065c6df6274ea5a68388469267e60e73..a3c75398898d5593f723196162400973
                  entityplayer2.getBukkitEntity().onEntityRemove(entityplayer);
              }
          }
-@@ -1002,7 +1003,7 @@ public abstract class PlayerList {
+@@ -1008,7 +1009,7 @@ public abstract class PlayerList {
                  target.connection.send(new ClientboundPlayerInfoUpdatePacket(EnumSet.of(ClientboundPlayerInfoUpdatePacket.Action.UPDATE_LATENCY), this.players.stream().filter(new Predicate<ServerPlayer>() {
                      @Override
                      public boolean test(ServerPlayer input) {
@@ -57,7 +57,7 @@ index 3c61cfed065c6df6274ea5a68388469267e60e73..a3c75398898d5593f723196162400973
                  }).collect(Collectors.toList())));
              }
 diff --git a/src/main/java/org/bukkit/craftbukkit/CraftServer.java b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
-index 1b36e94617d4e777c419660936460d5cf8a4b3e8..6a6d07452819c10b3e0dd53e0d759bba9335c74f 100644
+index b7af2d4300facf41a025c8ca322bf6541949b3ab..fbd4d677ef32a306d9f5004486db20dd630b38a8 100644
 --- a/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/CraftServer.java
 @@ -2598,7 +2598,7 @@ public final class CraftServer implements Server {
@@ -70,10 +70,10 @@ index 1b36e94617d4e777c419660936460d5cf8a4b3e8..6a6d07452819c10b3e0dd53e0d759bba
              }
          }
 diff --git a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
-index a0d5082590ee03060f0dbb4770d196efc316c328..7412679974a42973ba0d9c654e02fa41ae8c6adb 100644
+index ad740739437be632fc7fedec488a7d0c49534688..9e0c66ab0fbb81a2ae1dcab5376fa55e27cab562 100644
 --- a/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
 +++ b/src/main/java/org/bukkit/craftbukkit/entity/CraftPlayer.java
-@@ -551,7 +551,7 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
+@@ -553,7 +553,7 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
          getHandle().listName = name == null ? null : io.papermc.paper.adventure.PaperAdventure.asVanilla(name);
          if (getHandle().connection == null) return; // Updates are possible before the player has fully joined
          for (ServerPlayer player : server.getHandle().players) {
@@ -82,7 +82,7 @@ index a0d5082590ee03060f0dbb4770d196efc316c328..7412679974a42973ba0d9c654e02fa41
                  player.connection.send(new ClientboundPlayerInfoUpdatePacket(ClientboundPlayerInfoUpdatePacket.Action.UPDATE_DISPLAY_NAME, getHandle()));
              }
          }
-@@ -582,7 +582,7 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
+@@ -584,7 +584,7 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
          this.getHandle().listName = name.equals(this.getName()) ? null : CraftChatMessage.fromStringOrNull(name);
          if (this.getHandle().connection == null) return; // Paper - Updates are possible before the player has fully joined
          for (ServerPlayer player : (List<ServerPlayer>) this.server.getHandle().players) {
@@ -91,7 +91,7 @@ index a0d5082590ee03060f0dbb4770d196efc316c328..7412679974a42973ba0d9c654e02fa41
                  player.connection.send(new ClientboundPlayerInfoUpdatePacket(ClientboundPlayerInfoUpdatePacket.Action.UPDATE_DISPLAY_NAME, this.getHandle()));
              }
          }
-@@ -2053,11 +2053,16 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
+@@ -2052,11 +2052,16 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
          // Remove this entity from the hidden player's EntityTrackerEntry
          // Paper start
          Entity other = ((CraftEntity) entity).getHandle();
@@ -109,7 +109,7 @@ index a0d5082590ee03060f0dbb4770d196efc316c328..7412679974a42973ba0d9c654e02fa41
          // Paper end
          ChunkMap tracker = ((ServerLevel) this.getHandle().level()).getChunkSource().chunkMap;
          ChunkMap.TrackedEntity entry = tracker.entityMap.get(other.getId());
-@@ -2066,7 +2071,7 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
+@@ -2065,7 +2070,7 @@ public class CraftPlayer extends CraftHumanEntity implements Player {
          }
  
          // Remove the hidden entity from this player user list, if they're on it

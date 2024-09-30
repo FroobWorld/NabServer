@@ -17,7 +17,7 @@ index c1510d9167f466d3b7e3756353224f12f3876442..d4f0561741e71e10bf08448a02373207
              WalkerUtils.convert(MCTypeRegistry.ENTITY, data, "ShoulderEntityLeft", fromVersion, toVersion);
              WalkerUtils.convert(MCTypeRegistry.ENTITY, data, "ShoulderEntityRight", fromVersion, toVersion);
 diff --git a/src/main/java/net/minecraft/server/level/ServerPlayer.java b/src/main/java/net/minecraft/server/level/ServerPlayer.java
-index 6c280abdef5f80b668d6090f9d35283a33e21e0c..b73bb378e86b60363bc5d7542890837a08881bd9 100644
+index c396580a9cfd86ff261bed439bb4662ae88010b5..7e5f08b33abc93d98622c504a48a295b6a8bfb50 100644
 --- a/src/main/java/net/minecraft/server/level/ServerPlayer.java
 +++ b/src/main/java/net/minecraft/server/level/ServerPlayer.java
 @@ -697,6 +697,7 @@ public class ServerPlayer extends net.minecraft.world.entity.player.Player imple
@@ -36,7 +36,7 @@ index 6c280abdef5f80b668d6090f9d35283a33e21e0c..b73bb378e86b60363bc5d7542890837a
                  this.connection.teleport(exit); // CraftBukkit - use internal teleport without event
                  this.connection.resetPosition();
                  worldserver.addDuringTeleport(this);
-@@ -2031,12 +2033,22 @@ public class ServerPlayer extends net.minecraft.world.entity.player.Player imple
+@@ -2035,12 +2037,22 @@ public class ServerPlayer extends net.minecraft.world.entity.player.Player imple
      }
  
      public void restoreFrom(ServerPlayer oldPlayer, boolean alive) {
@@ -59,7 +59,7 @@ index 6c280abdef5f80b668d6090f9d35283a33e21e0c..b73bb378e86b60363bc5d7542890837a
          if (alive) {
              this.getInventory().replaceWith(oldPlayer.getInventory());
              this.setHealth(oldPlayer.getHealth());
-@@ -2072,6 +2084,7 @@ public class ServerPlayer extends net.minecraft.world.entity.player.Player imple
+@@ -2076,6 +2088,7 @@ public class ServerPlayer extends net.minecraft.world.entity.player.Player imple
          this.seenCredits = oldPlayer.seenCredits;
          this.enteredNetherPosition = oldPlayer.enteredNetherPosition;
          this.chunkTrackingView = oldPlayer.chunkTrackingView;
@@ -68,7 +68,7 @@ index 6c280abdef5f80b668d6090f9d35283a33e21e0c..b73bb378e86b60363bc5d7542890837a
          this.setShoulderEntityRight(oldPlayer.getShoulderEntityRight());
          this.setLastDeathLocation(oldPlayer.getLastDeathLocation());
 diff --git a/src/main/java/net/minecraft/server/players/PlayerList.java b/src/main/java/net/minecraft/server/players/PlayerList.java
-index 0368d6ba9cc9fe557d3c7172a87a7a5b15445e47..3c61cfed065c6df6274ea5a68388469267e60e73 100644
+index c13922d2fb1c15f895b14d4cb6d5379b59ea1ef8..69fedcdafa25a9015546ae1367b1a65f6cecbe9a 100644
 --- a/src/main/java/net/minecraft/server/players/PlayerList.java
 +++ b/src/main/java/net/minecraft/server/players/PlayerList.java
 @@ -819,9 +819,27 @@ public abstract class PlayerList {
@@ -114,17 +114,17 @@ index 0368d6ba9cc9fe557d3c7172a87a7a5b15445e47..3c61cfed065c6df6274ea5a683884692
          DimensionTransition dimensiontransition;
          if (location == null) {
              dimensiontransition = entityplayer.findRespawnPositionAndUseSpawnBlock(flag, DimensionTransition.DO_NOTHING, reason);
-@@ -857,6 +877,8 @@ public abstract class PlayerList {
+@@ -858,6 +878,8 @@ public abstract class PlayerList {
          } else {
              dimensiontransition = new DimensionTransition(((CraftWorld) location.getWorld()).getHandle(), CraftLocation.toVec3D(location), Vec3.ZERO, location.getYaw(), location.getPitch(), DimensionTransition.DO_NOTHING);
          }
 +        */
 +        // Nabulus end
          // Spigot Start
-         if (dimensiontransition == null) {
+         if (dimensiontransition == null) { // Paper - Add PlayerPostRespawnEvent - diff on change - spigot early returns if respawn pos is null, that is how they handle disconnected player in respawn event
              return entityplayer;
 diff --git a/src/main/java/net/minecraft/world/entity/Entity.java b/src/main/java/net/minecraft/world/entity/Entity.java
-index 3f7812c55dae82433336d6e091aa83434615fa04..57e95261d53ef97525ec623eb90ad3c317195b8f 100644
+index e12cbbe9eea3f243808fad547c91bd546fd4bbc8..c3dc41d0b13212965821c135ac49e409cb177f64 100644
 --- a/src/main/java/net/minecraft/world/entity/Entity.java
 +++ b/src/main/java/net/minecraft/world/entity/Entity.java
 @@ -3731,6 +3731,11 @@ public abstract class Entity implements SyncedDataHolder, Nameable, EntityAccess
