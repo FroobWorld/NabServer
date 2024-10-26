@@ -68,7 +68,7 @@ index c396580a9cfd86ff261bed439bb4662ae88010b5..7e5f08b33abc93d98622c504a48a295b
          this.setShoulderEntityRight(oldPlayer.getShoulderEntityRight());
          this.setLastDeathLocation(oldPlayer.getLastDeathLocation());
 diff --git a/src/main/java/net/minecraft/server/players/PlayerList.java b/src/main/java/net/minecraft/server/players/PlayerList.java
-index c13922d2fb1c15f895b14d4cb6d5379b59ea1ef8..69fedcdafa25a9015546ae1367b1a65f6cecbe9a 100644
+index 5e2c4969e77c669acbb4a13c07033cb267c3d586..6f4fd5659a2e5f537ab1cdf4d1ac63e7af21aa5e 100644
 --- a/src/main/java/net/minecraft/server/players/PlayerList.java
 +++ b/src/main/java/net/minecraft/server/players/PlayerList.java
 @@ -819,9 +819,27 @@ public abstract class PlayerList {
@@ -124,10 +124,10 @@ index c13922d2fb1c15f895b14d4cb6d5379b59ea1ef8..69fedcdafa25a9015546ae1367b1a65f
          if (dimensiontransition == null) { // Paper - Add PlayerPostRespawnEvent - diff on change - spigot early returns if respawn pos is null, that is how they handle disconnected player in respawn event
              return entityplayer;
 diff --git a/src/main/java/net/minecraft/world/entity/Entity.java b/src/main/java/net/minecraft/world/entity/Entity.java
-index e12cbbe9eea3f243808fad547c91bd546fd4bbc8..c3dc41d0b13212965821c135ac49e409cb177f64 100644
+index 8492421ed2186c0eab517a67f3140b9988f65250..600dfd3f75538de7c1d21ee339836fcff0a94439 100644
 --- a/src/main/java/net/minecraft/world/entity/Entity.java
 +++ b/src/main/java/net/minecraft/world/entity/Entity.java
-@@ -3731,6 +3731,11 @@ public abstract class Entity implements SyncedDataHolder, Nameable, EntityAccess
+@@ -3733,6 +3733,11 @@ public abstract class Entity implements SyncedDataHolder, Nameable, EntityAccess
          // Paper end - Fix item duplication and teleport issues
          if (world instanceof ServerLevel worldserver) {
              if (!this.isRemoved()) {
